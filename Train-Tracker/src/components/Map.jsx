@@ -36,11 +36,12 @@ function Map() {
                 />
                 {loading ? (<div className="loading">Loading...</div>) : (
                     trains.map((train) => {
-                        const [longitude, latitude] = train?.location.coordinates;
+                        const [longitude, latitude] = train.location.coordinates;
                         const position = [latitude, longitude];
                         return (
                             <Marker key={train.trainNumber} position={position}>
                                 <Popup>
+                                    Train number: {train.trainNumber} <br/>
                                     Speed: {train.speed} km/h
                                 </Popup>
                             </Marker>

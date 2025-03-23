@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { getCurrentTrainLocations } from "../services/api";
+import { getCurrentTrainLocations, getTrainDetails } from "../services/api";
 import "../css/Map.css";
 import { useEffect, useState } from "react";
 
@@ -38,8 +38,32 @@ function Map() {
     useEffect(() => {
         const loadCurrentTrainLocations = async () => {
             try {
+                setLoading(true);
                 const trainLocations = await getCurrentTrainLocations();
-                setTrains(trainLocations);
+                
+                const trainDetails = await Promise.all(
+                    trainLocations.map(async (train) => {
+                        try{
+                            const details = await getTrainDetails(train.trainNumber);
+                            return {
+                                ...train,
+                                operator: details[0]?.operatorShortCode || "Unknown",
+                                type: details[0]?.trainType || "Unknown",
+                                category: details[0]?.trainCategory || "Unknown"
+                            }
+                        } catch(error) {
+                            console.error("Error fetching train details:", error);
+                            return {
+                                ...train,
+                                operator: "Unknown",
+                                type: "Unknown",
+                                category: "Unknown"
+                            }
+                        }
+                    })
+                );
+
+                setTrains(trainDetails);
             } catch (err) {
                 console.log(err);
                 setError("Failed to load train locations...");
@@ -49,7 +73,7 @@ function Map() {
         };
 
         loadCurrentTrainLocations();
-        const interval = setInterval(loadCurrentTrainLocations, 30000);
+        const interval = setInterval(loadCurrentTrainLocations, 60000);
 
         return () => clearInterval(interval);
     }, []);
@@ -80,6 +104,9 @@ function Map() {
                                 <Marker key={train.trainNumber} position={position} icon={icon}>
                                     <Popup>
                                         Train number: {train.trainNumber} <br />
+                                        Train type: {train.type} <br/>
+                                        Train category: {train.category} <br/>
+                                        Train operator: {train.operator} <br/>
                                         Departure Date: {train.departureDate} <br />
                                         Speed: {train.speed} km/h
                                     </Popup>

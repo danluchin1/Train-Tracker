@@ -7,7 +7,7 @@ function Map() {
     const [trains, setTrains] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    
+
     let greenIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -15,35 +15,35 @@ function Map() {
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
-      });
+    });
 
-      let goldIcon = new L.Icon({
+    let goldIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
-      });
+    });
 
-      let redIcon = new L.Icon({
+    let redIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
-      });
+    });
 
     useEffect(() => {
         const loadCurrentTrainLocations = async () => {
             try {
                 setLoading(true);
                 const trainLocations = await getCurrentTrainLocations();
-                
+
                 const trainDetails = await Promise.all(
                     trainLocations.map(async (train) => {
-                        try{
+                        try {
                             const details = await getTrainDetails(train.trainNumber);
                             return {
                                 ...train,
@@ -51,7 +51,7 @@ function Map() {
                                 type: details[0]?.trainType || "Unknown",
                                 category: details[0]?.trainCategory || "Unknown"
                             }
-                        } catch(error) {
+                        } catch (error) {
                             console.error("Error fetching train details:", error);
                             return {
                                 ...train,
@@ -83,38 +83,40 @@ function Map() {
             {error && <div>{error}</div>}
 
             <div className="wrap-container">
-                <MapContainer center={[60.192059, 24.945831]} zoom={11} scrollWheelZoom={false}>
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    {loading ? (<div className="loading-spinner"></div>) : (
-                        trains.map((train) => {
-                            const [longitude, latitude] = train.location.coordinates;
-                            const position = [latitude, longitude];
+                <div className='map-container'>
+                    <MapContainer center={[60.192059, 24.945831]} zoom={11} scrollWheelZoom={false} className='leaflet-map'>
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        {loading ? (<div className="loading-spinner"></div>) : (
+                            trains.map((train) => {
+                                const [longitude, latitude] = train.location.coordinates;
+                                const position = [latitude, longitude];
 
-                            let icon = redIcon;
-                            if(train.speed >= 50 && train.speed <= 100){
-                                icon = goldIcon;
-                            }else if(train.speed > 100){
-                                icon = greenIcon;
-                            }
+                                let icon = redIcon;
+                                if (train.speed >= 50 && train.speed <= 100) {
+                                    icon = goldIcon;
+                                } else if (train.speed > 100) {
+                                    icon = greenIcon;
+                                }
 
-                            return (
-                                <Marker key={train.trainNumber} position={position} icon={icon}>
-                                    <Popup>
-                                        Train number: {train.trainNumber} <br />
-                                        Train type: {train.type} <br/>
-                                        Train category: {train.category} <br/>
-                                        Train operator: {train.operator} <br/>
-                                        Departure Date: {train.departureDate} <br />
-                                        Speed: {train.speed} km/h
-                                    </Popup>
-                                </Marker>
-                            );
-                        })
-                    )}
-                </MapContainer>
+                                return (
+                                    <Marker key={train.trainNumber} position={position} icon={icon}>
+                                        <Popup>
+                                            Train number: {train.trainNumber} <br />
+                                            Train type: {train.type} <br />
+                                            Train category: {train.category} <br />
+                                            Train operator: {train.operator} <br />
+                                            Departure Date: {train.departureDate} <br />
+                                            Speed: {train.speed} km/h
+                                        </Popup>
+                                    </Marker>
+                                );
+                            })
+                        )}
+                    </MapContainer>
+                </div>
             </div>
         </>
     );

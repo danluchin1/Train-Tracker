@@ -1,8 +1,15 @@
+@import "leaflet/dist/leaflet.css";
+
+.leaflet-container {
+    height: 100vh;
+    width: 100%;
+}
+
 .loading-spinner {
     width: 50px;
     height: 50px;
     border: 5px solid rgba(0, 0, 0, 0.1);
-    border-top-color: #3498db; /* Blue color */
+    border-top-color: #3498db; 
     border-radius: 50%;
     animation: spin 1s linear infinite;
     position: absolute;
@@ -15,3 +22,32 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.wrap-container {
+    width: 80%;
+    max-width: 2000px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-container {
+    width: 100%;
+    height: 600px; 
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+  .leaflet-map {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+  }

@@ -28,9 +28,10 @@
     max-width: 2000px;
     margin: 50px auto;
     padding: 20px;
-    background: #2C3E50;
+    background: var(--map-bg);
     border-radius: 10px;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;

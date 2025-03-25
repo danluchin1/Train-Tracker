@@ -1,13 +1,16 @@
 import Map from "./components/Map";
 import Header from "./components/Header";
+import { ThemeProvider } from "./contexts/ThemeProvider";
 import "./css/index.css";
 
 function App() {
 
   return (
     <>
-      <Header />
-      <Map />
+      <ThemeProvider>
+        <Header />
+        <Map />
+      </ThemeProvider>
     </>
   )
 }

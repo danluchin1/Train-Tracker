@@ -1,5 +1,6 @@
 import { getCurrentTrainLocations } from "../services/api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ThemeContext } from "../contexts/ThemeProvider";
 import "../css/Header.css";
 
 function Header() {
@@ -7,6 +8,7 @@ function Header() {
     const [lastUpdated, setLastUpdated] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     useEffect(() => {
         const loadCurrentTrainLocations = async () => {
@@ -41,6 +43,9 @@ function Header() {
                         </div>
                         <div className="header-info">
                                 <span>Last updated: {lastUpdated ? new Date(lastUpdated).toLocaleString() : "N/A"}</span>
+                                <button onClick={toggleTheme} className="dark-mode-toggle">
+                                    {theme === "dark" ? "☀ Light Mode" : "🌙 Dark Mode"}
+                                </button>
                         </div>
                     </header>
                 )

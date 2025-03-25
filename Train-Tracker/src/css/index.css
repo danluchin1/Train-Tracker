@@ -1,6 +1,26 @@
-*{
-    margin: 0;
+:root {
+    --bg-color: #cfcfcf;
+    --text-color: #333;
+    --header-bg: #2C3E50;
+    --header-text: #ffffff;
+    --map-bg: #2C3E50;
 }
-body{
-    background-color: #f0f0f0;
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg: #1e1e1e;
+    --header-text: #ffffff;
+    --map-bg: #1e1e1e;
+}
+
+body.dark-mode{
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }

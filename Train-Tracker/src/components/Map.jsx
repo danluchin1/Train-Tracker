@@ -1,12 +1,14 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { getCurrentTrainLocations, getTrainDetails } from "../services/api";
 import "../css/Map.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ThemeContext } from '../contexts/ThemeProvider';
 
 function Map() {
     const [trains, setTrains] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { theme } = useContext(ThemeContext);
 
     let greenIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -82,7 +84,7 @@ function Map() {
         <>
             {error && <div>{error}</div>}
 
-            <div className="wrap-container">
+            <div className={`wrap-container ${theme === "dark" ? "dark-mode" : ""}`}>
                 <div className='map-container'>
                     <MapContainer center={[60.192059, 24.945831]} zoom={11} scrollWheelZoom={false} className='leaflet-map'>
                         <TileLayer

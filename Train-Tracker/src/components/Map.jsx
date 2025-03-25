@@ -37,6 +37,11 @@ function Map() {
         shadowSize: [41, 41]
     });
 
+    const tileLayer = 
+        theme === "dark"
+            ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+            : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
     useEffect(() => {
         const loadCurrentTrainLocations = async () => {
             try {
@@ -86,16 +91,15 @@ function Map() {
 
             <div className={`wrap-container ${theme === "dark" ? "dark-mode" : ""}`}>
                 <div className='map-container'>
-                    <MapContainer center={[60.192059, 24.945831]} zoom={11} scrollWheelZoom={false} className='leaflet-map'>
+                    <MapContainer center={[60.192059, 24.945831]} zoom={11} scrollWheelZoom={false} key={theme} className='leaflet-map'>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            url={tileLayer}
                         />
                         {loading ? (<div className="loading-spinner"></div>) : (
                             trains.map((train) => {
                                 const [longitude, latitude] = train.location.coordinates;
                                 const position = [latitude, longitude];
-                                // console.log(train);
 
                                 let icon = redIcon;
                                 if (train.speed >= 50 && train.speed <= 100) {

@@ -39,7 +39,7 @@ function Map() {
         const loadCurrentTrainLocations = async () => {
             try {
                 setLoading(true);
-                const trainLocations = await getCurrentTrainLocations();
+                const { data: trainLocations } = await getCurrentTrainLocations();
 
                 const trainDetails = await Promise.all(
                     trainLocations.map(async (train) => {
@@ -73,9 +73,9 @@ function Map() {
         };
 
         loadCurrentTrainLocations();
-        const interval = setInterval(loadCurrentTrainLocations, 60000);
+        // const interval = setInterval(loadCurrentTrainLocations, 60000);
 
-        return () => clearInterval(interval);
+        // return () => clearInterval(interval);
     }, []);
 
     return (
@@ -93,6 +93,7 @@ function Map() {
                             trains.map((train) => {
                                 const [longitude, latitude] = train.location.coordinates;
                                 const position = [latitude, longitude];
+                                // console.log(train);
 
                                 let icon = redIcon;
                                 if (train.speed >= 50 && train.speed <= 100) {

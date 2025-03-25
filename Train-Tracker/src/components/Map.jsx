@@ -73,9 +73,9 @@ function Map() {
         };
 
         loadCurrentTrainLocations();
-        // const interval = setInterval(loadCurrentTrainLocations, 60000);
+        const interval = setInterval(loadCurrentTrainLocations, 60000);
 
-        // return () => clearInterval(interval);
+        return () => clearInterval(interval);
     }, []);
 
     return (

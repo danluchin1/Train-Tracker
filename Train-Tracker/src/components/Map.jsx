@@ -47,6 +47,8 @@ function Map() {
             try {
                 setLoading(true);
                 const { data: trainLocations } = await getCurrentTrainLocations();
+                setTrains(trainLocations);
+                setLoading(false);
 
                 const trainDetails = await Promise.all(
                     trainLocations.map(async (train) => {

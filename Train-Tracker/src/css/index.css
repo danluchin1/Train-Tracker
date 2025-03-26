@@ -4,6 +4,8 @@
     --header-bg: #2C3E50;
     --header-text: #ffffff;
     --map-bg: #2C3E50;
+    --footer-bg: #2C3E50;
+    --footer-text: #ffffff;
 }
 
 body {
@@ -18,6 +20,8 @@ body {
     --header-bg: #1e1e1e;
     --header-text: #ffffff;
     --map-bg: #1e1e1e;
+    --footer-bg: #1e1e1e;
+    --footer-text: #ffffff;
 }
 
 body.dark-mode{

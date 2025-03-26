@@ -35,3 +35,13 @@
     border-radius: 10px;
     font-weight: bold;
 }
+
+.dark-mode-toggle:hover{
+    background-color: rgb(180, 180, 180);
+    transform: translateX(2px) translateY(2px);
+}
+
+.dark-mode-toggle:active{
+    transform: scale(0.98);
+    background-color: white;
+}

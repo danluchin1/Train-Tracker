@@ -1,11 +1,13 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { getCurrentTrainLocations, getTrainDetails } from "../services/api";
-import "../css/Map.css";
 import { useEffect, useState, useContext } from "react";
 import { ThemeContext } from '../contexts/ThemeProvider';
+import TrainSidebar from './TrainSidebar';
+import "../css/Map.css";
 
 function Map() {
     const [trains, setTrains] = useState([]);
+    const [selectedTrain, setSelectedTrain] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const { theme } = useContext(ThemeContext);
@@ -87,13 +89,19 @@ function Map() {
         return () => clearInterval(interval);
     }, []);
 
+    const handleSelectedTrain = (train) => {
+        setSelectedTrain(train);
+    }
+
     return (
         <>
             {error && <div>{error}</div>}
 
             <div className={`wrap-container ${theme === "dark" ? "dark-mode" : ""}`}>
+
+                <TrainSidebar trains={trains} onTrainSelect={handleSelectedTrain} />
                 <div className='map-container'>
-                    <MapContainer center={[60.192059, 24.945831]} zoom={11} scrollWheelZoom={false} key={theme} className='leaflet-map'>
+                    <MapContainer center={[60.192059, 24.945831]} zoom={11} scrollWheelZoom={true} key={theme} className='leaflet-map'>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url={tileLayer}
@@ -124,11 +132,24 @@ function Map() {
                                 );
                             })
                         )}
+
+                        {selectedTrain && <FlyToTrain train={selectedTrain} />}
                     </MapContainer>
                 </div>
             </div>
         </>
     );
+}
+
+const FlyToTrain = ({ train }) => {
+    const map = useMap();
+    useEffect(() => {
+        if(train){
+            const [longitude, latitude] = train.location.coordinates;
+            map.flyTo([latitude, longitude], 14, { duration: 1.5});
+        }
+    }, [train, map])
+    return null;
 }
 
 export default Map;

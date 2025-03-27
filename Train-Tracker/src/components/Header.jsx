@@ -43,7 +43,7 @@ function Header() {
                         </div>
                         <div className="header-info">
                                 <span>Last updated: {lastUpdated ? new Date(lastUpdated).toLocaleString() : "N/A"}</span>
-                                <button onClick={toggleTheme} className="dark-mode-toggle">
+                                <button onClick={toggleTheme} title="Change the theme" className="dark-mode-toggle">
                                     {theme === "dark" ? "☀ Light Mode" : "🌙 Dark Mode"}
                                 </button>
                         </div>

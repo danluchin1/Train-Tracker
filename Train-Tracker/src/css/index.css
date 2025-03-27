@@ -6,6 +6,8 @@
     --map-bg: #2C3E50;
     --footer-bg: #2C3E50;
     --footer-text: #ffffff;
+    --sidebar-bg-hover: #415a74;
+    --sidebar-text: #ffffff;
 }
 
 body {
@@ -22,6 +24,8 @@ body {
     --map-bg: #1e1e1e;
     --footer-bg: #1e1e1e;
     --footer-text: #ffffff;
+    --sidebar-bg-hover: #303030;
+    --sidebar-text: #ffffff;
 }
 
 body.dark-mode{

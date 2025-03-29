@@ -8,7 +8,7 @@ function TrainSidebar({ trains, onTrainSelect }) {
             <ul>
                 {trains.length > 0 ? (
                     trains.map((train) => (
-                        <li key={train.trainNumber} onClick={() => onTrainSelect(train)}>
+                        <li key={train.trainNumber} title="See the train on the map" onClick={() => onTrainSelect(train)}>
                             <strong>Train number:</strong> {train.trainNumber} <br />
                             <strong>Train type:</strong> {train.type} <br />
                             <strong>Speed:</strong> {train.speed} km/h

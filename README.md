@@ -42,3 +42,6 @@ Train Tracker is a React-based web application that provides real-time tracking 
     ```
 
 5. Open the application in your browser at `http://localhost:5173/`.
+
+## Contribution
+Feel free to contribute by submitting issues or pull requests.

@@ -7,15 +7,15 @@ Train Tracker is a React-based web application that provides real-time tracking 
 * **Live Train Tracking**: Displays real-time locations of trains in Finland.
 * **Interactive Map**: Users can visually track train movements.
 * **Sidebar Information Panel**: Provides details about specific trains.
-* **Responsive UI**: Works seamlessly on various screen sizes.
+* **Responsive UI**: Optimized for seamless use across different screen sizes.
 * **Modular Components**: Structured with reusable React components for maintainability.
 
 ## Technologies Used
-* `React.js:` Frontend framework for building the user interface.
-* `Vite:` Fast development build tool for optimizing performance.
-* `DigiTraffic API:` Data source for real-time train location tracking.
-* `CSS Modules:` Styling components independently.
-* `Git:` Version control for code management.
+* React.js: Frontend framework for building the user interface.
+* Vite: Fast development build tool for optimizing performance.
+* DigiTraffic API: Data source for real-time train location tracking.
+* CSS Modules: Styling components independently.
+* Git: Version control system for source code management.
 
 ## Installation & Setup
 1. **Install Node.js**
@@ -31,7 +31,7 @@ Train Tracker is a React-based web application that provides real-time tracking 
     cd Train-Tracker
     ```
 
-3. **Install dependecies**
+3. **Install dependencies**
     ```sh
     npm install
     ```
@@ -44,4 +44,4 @@ Train Tracker is a React-based web application that provides real-time tracking 
 5. Open the application in your browser at `http://localhost:5173/`.
 
 ## Contribution
-Feel free to contribute by submitting issues or pull requests.
+Contributions are welcome! If you find a bug or have a feature suggestion, feel free to submit an issue or open a pull request.

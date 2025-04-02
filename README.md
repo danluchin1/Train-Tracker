@@ -31,17 +31,24 @@ Train Tracker is a React-based web application that provides real-time tracking 
     cd Train-Tracker
     ```
 
-3. **Install dependencies**
+3. **Create an `.env` file**<br>
+    Inside the project directory, create a `.env` file and add the following content:
+    ```sh
+    VITE_API_URL=https://rata.digitraffic.fi/api/v1
+    ```
+    This sets up the API base URL for fetching train data.
+
+4. **Install dependencies**
     ```sh
     npm install
     ```
 
-4. **Start the Development Server**
+5. **Start the Development Server**
     ```sh
     npm run dev
     ```
 
-5. Open the application in your browser at `http://localhost:5173/`.
+6. Open the application in your browser at `http://localhost:5173/`.
 
 ## Contribution
 Contributions are welcome! If you find a bug or have a feature suggestion, feel free to submit an issue or open a pull request.

@@ -11,9 +11,10 @@ Train Tracker is a React-based web application that provides real-time tracking 
 * **Modular Components**: Structured with reusable React components for maintainability.
 
 ## Technologies Used
-* React.js: Frontend framework for building the user interface.
+* React.js & TypeScript: Frontend framework using TypeScript for type safety and robust development.
 * Vite: Fast development build tool for optimizing performance.
 * DigiTraffic API: Data source for real-time train location tracking.
+* Leaflet & React-Leaflet: Interactive map components with full TypeScript support.
 * CSS Modules: Styling components independently.
 * Git: Version control system for source code management.
 
@@ -28,7 +29,6 @@ Train Tracker is a React-based web application that provides real-time tracking 
 2. **Clone the repository**
     ```sh
     git clone https://github.com/danluchin1/Train-Tracker
-    cd Train-Tracker
     ```
 
 3. **Create an `.env` file**<br>

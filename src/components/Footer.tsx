@@ -1,9 +1,8 @@
-import { ThemeContext } from "../contexts/ThemeProvider";
-import { useContext } from "react";
+import { useTheme } from "../contexts/ThemeProvider";
 import "../css/Footer.css";
 
 function Footer(){
-    const { theme } = useContext(ThemeContext);
+    const { theme } = useTheme();
 
     return(
         <footer className={`app-footer ${theme === "dark" ? "dark-mode" : ""}`}>

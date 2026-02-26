@@ -1,14 +1,15 @@
 import { getCurrentTrainLocations } from "../services/api";
-import { useEffect, useState, useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeProvider";
+import { useEffect, useState } from "react";
+import { useTheme } from "../contexts/ThemeProvider";
 import "../css/Header.css";
+import { TrainLocationResponse } from "../types/types";
 
 function Header() {
-    const [trains, setTrains] = useState([]);
-    const [lastUpdated, setLastUpdated] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const [trains, setTrains] = useState<TrainLocationResponse[]>([]);
+    const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const { theme, toggleTheme } = useTheme();
 
     useEffect(() => {
         const loadCurrentTrainLocations = async () => {

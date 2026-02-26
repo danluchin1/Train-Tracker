@@ -1,10 +1,12 @@
+import { TrainLocationResponse, TrainTechnicalDetails } from "../types/types";
+
 const bbox = "20.170898,59.512029,31.904297,70.214875";
 
 const baseUrl = import.meta.env.PROD
   ? 'https://rata.digitraffic.fi/api/v1'
   : '/api';
 
-export const getCurrentTrainLocations = async () => {
+export const getCurrentTrainLocations = async (): Promise<{ data: TrainLocationResponse[], lastUpdated: string | null }> => {
     const response = await fetch(`${baseUrl}/train-locations/latest?bbox=${bbox}`);
     const data = await response.json();
     
@@ -14,9 +16,10 @@ export const getCurrentTrainLocations = async () => {
     return { data, lastUpdated };
 }
 
-export const getTrainDetails = async (trainNumber) => {
+export const getTrainDetails = async (trainNumber: number): Promise<TrainTechnicalDetails[]> => {
     const today = new Date().toISOString().split("T")[0];
     const response = await fetch(`${baseUrl}/trains/${today}/${trainNumber}`);
     const data = await response.json();
     return data;
 }
+

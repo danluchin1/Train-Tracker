@@ -1,16 +1,18 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { getCurrentTrainLocations, getTrainDetails } from "../services/api";
-import { useEffect, useState, useContext } from "react";
-import { ThemeContext } from '../contexts/ThemeProvider';
+import { useEffect, useState } from "react";
+import { useTheme } from '../contexts/ThemeProvider';
 import TrainSidebar from './TrainSidebar';
 import "../css/Map.css";
+import { TrainDetailsProps, TrainLocationResponse } from '../types/types';
+import L, {LatLngTuple} from 'leaflet';
 
 function Map() {
-    const [trains, setTrains] = useState([]);
-    const [selectedTrain, setSelectedTrain] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const { theme } = useContext(ThemeContext);
+    const [trains, setTrains] = useState<TrainDetailsProps[]>([]);
+    const [selectedTrain, setSelectedTrain] = useState<TrainDetailsProps | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const { theme } = useTheme();
 
     let greenIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -49,11 +51,10 @@ function Map() {
             try {
                 setLoading(true);
                 const { data: trainLocations } = await getCurrentTrainLocations();
-                setTrains(trainLocations);
                 setLoading(false);
 
                 const trainDetails = await Promise.all(
-                    trainLocations.map(async (train) => {
+                    trainLocations.map(async (train: TrainLocationResponse) => {
                         try {
                             const details = await getTrainDetails(train.trainNumber);
                             return {
@@ -89,7 +90,7 @@ function Map() {
         return () => clearInterval(interval);
     }, []);
 
-    const handleSelectedTrain = (train) => {
+    const handleSelectedTrain = (train: TrainDetailsProps) => {
         setSelectedTrain(train);
     }
 
@@ -109,7 +110,7 @@ function Map() {
                         {loading ? (<div className="loading-spinner"></div>) : (
                             trains.map((train) => {
                                 const [longitude, latitude] = train.location.coordinates;
-                                const position = [latitude, longitude];
+                                const position: LatLngTuple = [latitude, longitude];
 
                                 let icon = redIcon;
                                 if (train.speed >= 50 && train.speed <= 100) {
@@ -141,7 +142,7 @@ function Map() {
     );
 }
 
-const FlyToTrain = ({ train }) => {
+const FlyToTrain = ({ train }: { train: TrainDetailsProps}) => {
     const map = useMap();
     useEffect(() => {
         if(train){
